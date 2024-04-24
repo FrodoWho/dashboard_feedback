@@ -1,6 +1,6 @@
 import db from "@/db/db";
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse, userAgent } from "next/server";
+import { NextResponse } from "next/server";
 
 // export default async function handler(
 //   req: NextApiRequest,
@@ -29,33 +29,43 @@ import { NextResponse, userAgent } from "next/server";
 // }
 
 const POST = async (request: any) => {
-  const requestData = await request.json();
-  console.log("Request email is", requestData.email);
+  // try {
+  //   // Check if a user with the same email already exists
+  //   const existingUser = await db.user.findUnique({
+  //     where: {
+  //       email: requestData.email,
+  //     },
+  //   });
+
+  //   if (existingUser) {
+  //     return NextResponse.json(
+  //       { message: "A user with this email already exists." },
+  //       { status: 409 }
+  //     );
+  //   }
 
   try {
-    // Check if a user with the same email already exists
-    const existingUser = await db.user.findUnique({
-      where: {
-        email: requestData.email,
-      },
-    });
-
-    if (existingUser) {
-      return NextResponse.json(
-        { message: "A user with this email already exists." },
-        { status: 409 }
-      );
-    }
-
+    const requestData = await request.json();
+    console.log("Request problem is", requestData.problem);
     // If no existing user, create a new one
-    const user = await db.user.create({
+    const feedback = await db.feedback.create({
       data: {
-        email: requestData.email,
+        // URL, problem en userID zijn required volgens de model van prisma
+        // hierdoor moeten deze worden meegegeven in de try method
+
+        // createdAt: requestData.createdAt,
+        url: requestData.url,
+        problem: requestData.problem,
+        // comment: requestData.comment,
+        userId: requestData.userId,
         // Add other fields as needed
       },
     });
 
-    return NextResponse.json({ message: "User created successfully", user });
+    return NextResponse.json({
+      message: "Problem has succesfully been submitted: ",
+      feedback,
+    });
   } catch (error) {
     console.error("Failed to create user:", error);
     return NextResponse.json(

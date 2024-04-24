@@ -8,9 +8,8 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  email    String     @unique
-  feedback Feedback[]
+  id    Int    @id @default(autoincrement())
+  email String @unique
 }
 
 model Feedback {
@@ -20,7 +19,6 @@ model Feedback {
   problem   String
   comment   String?
   userId    Int
-  user      User     @relation(fields: [userId], references: [id])
 
   @@index([userId], map: "Feedback_userId_fkey")
 }
