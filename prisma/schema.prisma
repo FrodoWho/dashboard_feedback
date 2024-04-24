@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,17 +8,19 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
+  id       Int        @id @default(autoincrement())
+  email    String     @unique
   feedback Feedback[]
 }
 
 model Feedback {
-  id         Int     @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  url        String
-  problem    String  // Could be normalized into a separate model if complex
-  comment    String? // Optional field for additional comments
-  userId     Int
-  user       User    @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  url       String
+  problem   String
+  comment   String?
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Feedback_userId_fkey")
 }
