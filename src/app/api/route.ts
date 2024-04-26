@@ -37,7 +37,7 @@ const POST = async (request: any) => {
       data: {
         // URL, problem en userID zijn required volgens de model van prisma
         // hierdoor moeten deze worden meegegeven in de try method
-
+        // test
         // createdAt: requestData.createdAt,
         url: requestData.url,
         problem: requestData.problem,
