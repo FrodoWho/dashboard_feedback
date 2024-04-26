@@ -19,6 +19,7 @@ model Feedback {
   problem   String
   comment   String?
   userId    Int
+  browser   String
 
   @@index([userId], map: "Feedback_userId_fkey")
 }

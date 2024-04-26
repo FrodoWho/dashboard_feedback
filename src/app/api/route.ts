@@ -29,21 +29,6 @@ import { NextResponse } from "next/server";
 // }
 
 const POST = async (request: any) => {
-  // try {
-  //   // Check if a user with the same email already exists
-  //   const existingUser = await db.user.findUnique({
-  //     where: {
-  //       email: requestData.email,
-  //     },
-  //   });
-
-  //   if (existingUser) {
-  //     return NextResponse.json(
-  //       { message: "A user with this email already exists." },
-  //       { status: 409 }
-  //     );
-  //   }
-
   try {
     const requestData = await request.json();
     console.log("Request problem is", requestData.problem);
@@ -58,6 +43,7 @@ const POST = async (request: any) => {
         problem: requestData.problem,
         // comment: requestData.comment,
         userId: requestData.userId,
+        browser: requestData.browser,
         // Add other fields as needed
       },
     });
