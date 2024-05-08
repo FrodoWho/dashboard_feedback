@@ -18,8 +18,13 @@ model Feedback {
   url       String
   problem   String
   comment   String?
-  userId    Int
+  userId    Int?
   browser   String
 
   @@index([userId], map: "Feedback_userId_fkey")
+}
+
+model Issue {
+  id    Int    @id @default(autoincrement())
+  issue String @unique
 }

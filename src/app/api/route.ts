@@ -1,32 +1,15 @@
 import db from "@/db/db";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   try {
-//     if (req.method !== "POST") {
-//       return res.status(405).json({ message: "Method not allowed" });
-//     }
+export async function GET() {
+  const issues = await db.issue.findMany({
+    select: {
+      issue: true,
+    },
+  });
 
-//     const { content } = req.body;
-
-//     const newUser = await db.user.create({
-//       data: {
-//         content,
-//       },
-//     });
-
-//     res
-//       .status(200)
-//       .json({ message: "Post created successfully!", data: newUser });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// }
+  return NextResponse.json(issues);
+}
 
 const POST = async (request: any) => {
   try {
