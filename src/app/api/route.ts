@@ -15,19 +15,17 @@ const POST = async (request: any) => {
   try {
     const requestData = await request.json();
     console.log("Request problem is", requestData.problem);
-    // If no existing user, create a new one
     const feedback = await db.feedback.create({
       data: {
         // URL, problem en userID zijn required volgens de model van prisma
         // hierdoor moeten deze worden meegegeven in de try method
-        // test
         // createdAt: requestData.createdAt,
         url: requestData.url,
         problem: requestData.problem,
         // comment: requestData.comment,
         userId: requestData.userId,
         browser: requestData.browser,
-        // Add other fields as needed
+        // Voeg meer velden toe als nodig is
       },
     });
 
